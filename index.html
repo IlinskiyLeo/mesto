@@ -59,10 +59,12 @@
             <section class="popup">
                 <button class="popup__close-button"></button>
                 <div class="popup__container">
-                    <p class="popup__title">Редактировать профиль</p>
-                    <input type="text" class="popup__input-name">
-                    <input type="text" class="popup__input-about">
-                    <button class="popup__save-button">Сохранить</button>
+                    <form class="popup__form" action="">
+                        <legend class="popup__title">Редактировать профиль</legend>
+                        <input type="text" class="popup__input-name">
+                        <input type="text" class="popup__input-about">
+                        <input type="submit" class="popup__save-button" value="Сохранить">
+                    </form>
                 </div>
             </section>
         </main>
@@ -71,5 +73,10 @@
         </footer>
 
     </div> 
+    <script src="./scripts/profile/__edit-button/profile__edit-button.js"></script>
+    <script src="./scripts/popup/__close-button/popup__close-button.js"></script>
+    <script src="./scripts/popup/__input-name/popup__input-name.js"></script>
+    <script src="./scripts/popup/__input-about/popup__input-about.js"></script>
+    <script src="./scripts/popup/__save-button/popup__save-button.js"></script>
 </body>
 </html>
