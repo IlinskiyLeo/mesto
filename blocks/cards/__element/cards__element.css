@@ -1,0 +1,9 @@
+.cards__element {
+    display: flex;
+    flex-wrap: wrap;
+    overflow: hidden;
+    justify-content: space-between;
+    border-radius: 10px;
+    background-color: #fff;
+    color: #000;
+}

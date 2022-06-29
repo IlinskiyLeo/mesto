@@ -1,0 +1,16 @@
+.block {
+    max-width: 880px;
+    margin: 0 auto;
+}
+
+@media screen and (max-width:1023px) {
+    .block {
+        max-width: 720px;
+    }
+}
+
+@media screen and (max-width:767px) {
+    .block {
+        max-width: 282px;
+    }
+}
