@@ -1,5 +1,7 @@
 .popup__container {
     display: flex;
+    align-self: center;
+    justify-self: center;
 }
 
 @media screen and (max-width:767px) {
