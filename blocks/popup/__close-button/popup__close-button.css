@@ -1,10 +1,9 @@
 .popup__close-button {
     position: absolute;
-    top: 155px;
-    right: 385px;
+    top: -40px;
+    right: -40px;
     height: 32px;
     width: 32px;
-    margin:0 0 8px 8px;
     padding: 0;
     border: none;
     font: inherit;
@@ -21,10 +20,9 @@
 
 @media screen and (max-width:767px) {
     .popup__close-button {
-        top: 87px;
-        right: 19px;
+        top: -36px;
+        right: 0;
         width: 20px;
         height: 20px;
-        margin-bottom: 16px;
     }
 }
