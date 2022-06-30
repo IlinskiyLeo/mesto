@@ -1,11 +1,4 @@
 .profile__button-container {
     display: flex;
-    max-height: 39px;
 
-}
-
-@media screen and (max-width:767px) {
-    .profile__button-container {
-        max-height: 26px;
-    }
 }

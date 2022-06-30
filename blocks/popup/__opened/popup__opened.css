@@ -1,3 +1,11 @@
 .popup__opened {
-    display: block;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+@media screen and (max-width:767px) {
+    .popup__opened {
+        flex-direction: column-reverse;
+    }
 }
