@@ -1,6 +1,8 @@
 .profile__about {
-    max-width: 400px;
-    overflow-wrap: break-word;
+    max-width: 336px;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
     margin: 16px 0 0;
     font-style: normal;
     font-weight: 400;

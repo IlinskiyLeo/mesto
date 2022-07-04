@@ -3,13 +3,13 @@
     justify-content: start;
     align-items: center;
     flex-wrap: nowrap;
-    margin-top: 40px;
+    padding-top: 40px;
 }
 
 @media screen and (max-width: 767px) {
     .profile {
         flex-direction: column;
         max-height: none;
-        margin-top: 42px;
+        padding-top: 42px;
     }
 }
