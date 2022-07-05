@@ -8,6 +8,14 @@
 
 @font-face {
     font-family: 'Inter';
+    src: url("./../vendor/fonts/Inter-Medium.ttf") format("ttf"),
+            url("./../vendor/fonts/Inter-Medium.woff") format("woff"),
+            url("./../vendor/fonts/Inter-Medium.woff2") format("woff2");
+    font-weight: 500;
+}
+
+@font-face {
+    font-family: 'Inter';
     src: url("./../vendor/fonts/Inter-Black.ttf") format("ttf"),
             url("./../vendor/fonts/Inter-Black.woff") format("woff"),
             url("./../vendor/fonts/Inter-Black.woff2") format("woff2");
