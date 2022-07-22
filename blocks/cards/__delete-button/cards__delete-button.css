@@ -4,7 +4,7 @@
     position: absolute;
     top: 20px;
     right: 20px;
-    z-index: 2;
+    z-index: 1;
     width: 18px;
     height: 19px;
     background: center url(../../../images/cards__delete-button.svg);

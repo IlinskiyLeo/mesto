@@ -29,10 +29,10 @@
             </section>
             <div class="popup popup-edit">
                 <div class="popup__container">
-                    <form class="popup__form">
+                    <form class="popup__form" id="edit">
                         <h3 class="popup__title">Редактировать профиль</h3>
-                        <input type="text" maxlength="25" placeholder="Введите имя" class="popup__input-name">
-                        <input type="text" maxlength="100" placeholder="Место для описания" class="popup__input-about">
+                        <input type="text" maxlength="25" placeholder="Введите имя" class="popup__input" id="edit__name">
+                        <input type="text" maxlength="100" placeholder="Место для описания" class="popup__input" id="edit__about">
                         <button type="submit" class="popup__save-button">Сохранить</button>
                     </form>
                     <button class="popup__close-button"></button>
@@ -40,10 +40,10 @@
             </div>
             <div class="popup popup-add">
                 <div class="popup__container">
-                    <form class="popup__form">
+                    <form class="popup__form" id="add">
                         <h3 class="popup__title">Новое место</h3>
-                        <input type="text" maxlength="25" placeholder="Название" class="popup__input-name">
-                        <input type="text" maxlength="100" placeholder="Ссылка на картинку" class="popup__input-about">
+                        <input type="text" maxlength="25" placeholder="Название" class="popup__input" id="add__name">
+                        <input type="text" maxlength="100" placeholder="Ссылка на картинку" class="popup__input" id="add__link">
                         <button type="submit" class="popup__save-button">Создать</button>
                     </form>
                     <button class="popup__close-button"></button>

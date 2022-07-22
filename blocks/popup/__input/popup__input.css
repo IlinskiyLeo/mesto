@@ -1,7 +1,7 @@
-.popup__input-about {
+.popup__input {
     all: unset;
     width: 358px;
-    margin: 30px 36px 0;
+    margin: 54px 36px 0;
     border-bottom: 1px solid rgba(0, 0, 0, .2);
     font-weight: 400;
     font-size: 14px;
@@ -9,9 +9,22 @@
     padding-bottom: 13px;
 }
 
+.popup__input:nth-child(3){
+    margin: 30px 36px 0;
+}
+
 @media screen and (max-width:767px) {
-    .popup__input-about {
+    .popup__input {
         width: 238px;
+        margin: 75px 22px 0;
+    }
+
+    .popup__input:nth-child(3){
         margin: 30px 22px 0;
     }
 }
+
+
+
+
+
