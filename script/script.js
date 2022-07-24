@@ -3,7 +3,8 @@ const popupForm = document.querySelector(".popup__form");
 const editButton = profile.querySelector(".profile__edit-button");
 const saveButton = popupForm.querySelector(".popup__save-button");
 const closeButton = document.querySelectorAll(".popup__close-button");
-const deleteButton = document.querySelector('.cards__delete-button');
+const card = document.querySelectorAll('.cards__element');
+const deleteButton = document.querySelectorAll('.cards__delete-button');
 const addButton = document.querySelector(".profile__add-button");
 const textName = profile.querySelector(".profile__name");
 const textAbout = profile.querySelector(".profile__about");
@@ -114,7 +115,20 @@ closeButton.forEach((button) => {
 //  btn.parentElement.remove();
 //};
 
-deleteButton.addEventListener('click', function(evt) {
-  let btn = evt.target.closest('.cards__delete-button');
-  btn.parentElement.remove();
-});
+//deleteButton.forEach(Element => {
+//  Element.addEventListener('click', (evt) => {
+//    let btn = evt.target.closest('.cards__delete-button');
+//    btn.parentElement.remove();
+//  })
+//});
+
+card.onclick = (e) => {
+  card.forEach(() => {
+    const btn = e.target.closest('.cards__delete-button');
+    if (!btn) {
+      return;
+    };
+
+    btn.parentElement.remove();
+  });
+};
