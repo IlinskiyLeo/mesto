@@ -8,59 +8,56 @@
     <link rel="icon" href="https://cdn.flipboard.com/uploads/avatar/54ed37509078484e900bff8f0dd40552993c05ca.jpg">
     <title>Document</title>
 </head>
-<body>
-    <div class="page">
-        <header class="block header">
-            <img src="./images/header__logo.svg" alt="Логотип Mesto" class="header__logo">
-        </header>
-        <main class="block content">
-            <section class="profile">
-                <img src="./images/profile__photo.png" alt="Фото профиля" class="profile__photo">
-                <div class="profile__text-container">
-                    <div class="profile__button-container">
-                        <h3 class="profile__name">Жак-Ив Кусто</h3>
-                        <button class="profile__edit-button"></button>
-                    </div>
-                    <p class="profile__about">Исследователь океана</p>
+<body class="page">
+    <header class="block header">
+        <img src="./images/header__logo.svg" alt="Логотип Mesto" class="header__logo">
+    </header>
+    <main class="block content">
+        <section class="profile">
+            <img src="./images/profile__photo.png" alt="Фото профиля" class="profile__photo">
+            <div class="profile__text-container">
+                <div class="profile__button-container">
+                    <h3 class="profile__name">Жак-Ив Кусто</h3>
+                    <button class="profile__edit-button"></button>
                 </div>
-                <button class="profile__add-button"></button>
-            </section>
-            <section class="cards">
-            </section>
-            <div class="popup popup-edit">
-                <div class="popup__container">
-                    <form class="popup__form" id="edit">
-                        <h3 class="popup__title">Редактировать профиль</h3>
-                        <input type="text" maxlength="25" placeholder="Введите имя" class="popup__input" id="edit__name">
-                        <input type="text" maxlength="100" placeholder="Место для описания" class="popup__input" id="edit__about">
-                        <button type="submit" class="popup__save-button">Сохранить</button>
-                    </form>
-                    <button class="popup__close-button"></button>
-                </div>
+                <p class="profile__about">Исследователь океана</p>
             </div>
-            <div class="popup popup-add">
-                <div class="popup__container">
-                    <form class="popup__form" id="add">
-                        <h3 class="popup__title">Новое место</h3>
-                        <input type="text" maxlength="25" placeholder="Название" class="popup__input" id="add__name">
-                        <input type="text" maxlength="100" placeholder="Ссылка на картинку" class="popup__input" id="add__link">
-                        <button type="submit" class="popup__save-button">Создать</button>
-                    </form>
-                    <button class="popup__close-button"></button>
-                </div>
+            <button class="profile__add-button"></button>
+        </section>
+        <section class="cards">
+        </section>
+        <div class="popup popup-edit">
+            <div class="popup__container">
+                <form class="popup__form" id="edit">
+                    <h3 class="popup__title">Редактировать профиль</h3>
+                    <input type="text" maxlength="25" placeholder="Введите имя" class="popup__input" id="edit__name">
+                    <input type="text" maxlength="100" placeholder="Место для описания" class="popup__input" id="edit__about">
+                    <button type="submit" class="popup__save-button">Сохранить</button>
+                </form>
+                <button class="popup__close-button"></button>
             </div>
-            <div class="popup popup-photo">
-                <div class="popup__container">
-                    <img src="" alt="Изображение из карточки" class="popup-photo__image">
-                    <button class="popup__close-button"></button>
-                </div>
+        </div>
+        <div class="popup popup-add">
+            <div class="popup__container">
+                <form class="popup__form" id="add">
+                    <h3 class="popup__title">Новое место</h3>
+                    <input type="text" maxlength="25" placeholder="Название" class="popup__input" id="add__name">
+                    <input type="text" maxlength="100" placeholder="Ссылка на картинку" class="popup__input" id="add__link">
+                    <button type="submit" class="popup__save-button">Создать</button>
+                </form>
+                <button class="popup__close-button"></button>
             </div>
-        </main>
-        <footer class="block footer">
-            <p class="footer__copyright">&copy; 2020 Mesto Russia</p>
-        </footer>
-
-    </div> 
+        </div>
+        <div class="popup popup-photo">
+            <div class="popup__container">
+                <img src="" alt="Изображение из карточки" class="popup-photo__image">
+                <button class="popup__close-button"></button>
+            </div>
+        </div>
+    </main>
+    <footer class="block footer">
+        <p class="footer__copyright">&copy; 2020 Mesto Russia</p>
+    </footer> 
     <script src="./script/script.js"></script>
 </body>
 </html>
