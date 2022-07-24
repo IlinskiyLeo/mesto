@@ -88,8 +88,11 @@ likeButton.forEach(item => {
   })
 });
 
+const body = document.querySelector('body');
+
 function openPopup(popup) {
   popup.classList.add("popup__opened");
+  body.classList.add('page_no-scroll');
 }
 
 function addPhotoListener () {
@@ -104,6 +107,7 @@ function addPhotoListener () {
 }
 
 function closeAllPopups() {
+  body.classList.remove('page_no-scroll');
   popups.forEach((popup) => {
     popup.classList.remove("popup__opened");
   });
