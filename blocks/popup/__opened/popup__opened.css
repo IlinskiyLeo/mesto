@@ -1,7 +1,10 @@
 .popup__opened {
     display: flex;
+    visibility: visible;
     align-items: center;
     justify-content: center;
+    transition: opacity .5s;
+    opacity: 1;
 }
 
 @media screen and (max-width:767px) {

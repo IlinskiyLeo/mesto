@@ -13,8 +13,3 @@
     opacity: .5;
     transition: opacity .3s;
 }
-
-.cards__like-button:active {
-    opacity: 1;
-    background: url(../../../images/cards__like-button_active.svg);
-}
