@@ -51,12 +51,6 @@ const addDeleteListener = (evt) => {
   card.remove();
 }
 
-// document.addEventListener('click', evt => {
-//   if (evt.target.classList.contains('popup__submit')) {
-//     evt.target.parentElement.parentElement.submit();
-//   }
-// });
-
 const createCard = (item) => {
   const cardsTemplate = document.querySelector('.cards__element-template').content;
   const cardsElement = cardsTemplate.querySelector('.cards__element').cloneNode(true);
@@ -160,6 +154,3 @@ const closeButtons = document.querySelectorAll(".popup__close-button");
 closeButtons.forEach((button) => {
   button.addEventListener("click", (evt) => closePopup(evt));
 });
-
-
-  document.addEventListener
