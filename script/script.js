@@ -65,6 +65,7 @@ const createCard = (item) => {
   likeButton.addEventListener('click', (evt) =>  addLikeListener(evt));
 
   cardsImage.addEventListener("click", (evt) => addPhotoListener(evt));
+  cardsImage.setAttribute('alt', cardsDescription.textContent);
 
   const deleteButton = cardsElement.querySelector('.cards__delete-button');
   deleteButton.addEventListener('click', (evt) => addDeleteListener(evt));
@@ -98,6 +99,7 @@ const checkKeydownEvent = (evt) => {
 const openPopup = (popup) => {
   document.addEventListener("keydown", function addKeydowmListener(evt){checkKeydownEvent(evt)});
   popup.addEventListener('click', function removePopupClass(evt){evt.target.classList.remove("popup__opened");} );
+  disableAddbutton(popupAdd);
   popup.classList.add("popup__opened");
   body.classList.add('page_no-scroll');
 }
@@ -105,8 +107,10 @@ const openPopup = (popup) => {
 const closePopup = (popup) => {
   popup.classList.remove("popup__opened");
   body.classList.remove('page_no-scroll');
-  resetFormAdd(popup);
+  resetFormAdd(popup); 
 }
+
+const disableAddbutton = (popupAdd) => {popupAdd.querySelector('.popup__save-button').classList.add('popup__save-button_inactive')};
 
 const resetFormAdd = (popup) => {
   if (document.querySelector('#add')) {
@@ -156,7 +160,7 @@ const linkAdd = document.querySelector("#popup__input-link");
 
 formAdd.addEventListener("submit", (evt) => {
   cards.prepend(createCard({name:nameAdd.value, link:linkAdd.value}));
-    closePopup(popup);
+    closePopup(evt.target.offsetParent.offsetParent);
     formAdd.reset();
 });    
 
