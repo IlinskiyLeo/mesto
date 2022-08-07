@@ -89,7 +89,7 @@ function removePopupClass(evt) {
 } 
 const checkKeydownEvent = (evt) => {
   if (evt.key === 'Escape') {
-    const activePopup = document.querySelector('.popup__opened'); //вот я тупица, спасибо!
+    const activePopup = document.querySelector('.popup__opened');
     closePopup(activePopup);
   }
 }
@@ -158,13 +158,9 @@ formAdd.addEventListener("submit", (evt) => {
     formAdd.reset();
 });    
 
-const closeButtons = document.querySelectorAll(".popup__close-button");
-
-
-
 popups.forEach((popup) => {
   popup.addEventListener('click', (evt) => {
-    if (evt.target === evt.currentTarget || evt.target.classList.contains('popup__close-button')) { // спасибо почитал
+    if (evt.target === evt.currentTarget || evt.target.classList.contains('popup__close-button')) {
       closePopup(popup);
     }
     return
