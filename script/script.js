@@ -1,7 +1,7 @@
 const profile = document.querySelector(".profile");
-const editButton = profile.querySelector(".profile__edit-button");
-const submitButton = document.querySelectorAll(".popup__save-button");
-const addButton = document.querySelector(".profile__add-button");
+const buttonEdit = profile.querySelector(".profile__edit-button");
+const buttonSubmit = document.querySelectorAll(".popup__save-button");
+const buttonAdd = document.querySelector(".profile__add-button");
 const textName = profile.querySelector(".profile__name");
 const textAbout = profile.querySelector(".profile__about");
 const inputAbout = document.querySelector("#popup__input-about");
@@ -10,7 +10,7 @@ const popupPhotoImage = document.querySelector('.popup-photo__image');
 const popupPhotoDescription = document.querySelector('.popup-photo__description');
 const cards = document.querySelector('.cards');
 
-const initialCards = [
+const cardsInitial = [
   {
   name: 'Архыз',
   link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/arkhyz.jpg'
@@ -75,46 +75,58 @@ const createCard = (item) => {
 const popupEdit = document.querySelector(".popup-edit");
 const popupAdd = document.querySelector(".popup-add");
 const popupPhoto = document.querySelector(".popup-photo");
+const popups = document.querySelectorAll('.popup');
 
-initialCards.forEach(item => {
+cardsInitial.forEach(item => {
   cards.append(createCard(item));
 });
 
 const body = document.querySelector('body');
 
-function openPopup(popup) {
-  document.addEventListener("keydown", (evt) => {
-    if (evt.key === 'Escape') {
-      closePopupByEsc(popup);
-    }
-});
-  popup.addEventListener('click', evt => {
-    evt.target.classList.remove("popup__opened");
-  });
+const removePopupClass = (evt) => {evt.target.classList.remove("popup__opened");}
+const checkKeydownEvent = (evt) => {
+  if (evt.key === 'Escape') {
+    const main = evt.target.children[1];
+    const blocks = Array.from(main.children)
+    blocks.forEach(Element => {
+      if (Element.classList.contains('popup')) {
+        closePopupByEsc(Element);
+      }
+    })
+  }
+}
+
+const openPopup = (popup) => {
+  document.addEventListener("keydown", (evt) => checkKeydownEvent(evt));//я реально 2 часа потратил на попытки выполнить твоё исправление, но это какой-то костыль
+  popup.addEventListener('click', (evt) => removePopupClass(evt));// тут было попроще и то хз правильно ли я сделал
   popup.classList.add("popup__opened");
   body.classList.add('page_no-scroll');
 }
 
-const closePopup = (evt) => {
-  const selectPopup = evt.target.closest('.popup');
-  selectPopup.classList.remove("popup__opened");
+const closePopup = (popup) => {
+  popup.classList.remove("popup__opened");
   body.classList.remove('page_no-scroll');
-  if (selectPopup.querySelector('#add')) {
-    addForm.reset();
-  }
+  resetFormAdd(popup);
 }
 
-const closePopupByEsc = (evt) => {
-  evt.classList.remove("popup__opened");
-  body.classList.remove('page_no-scroll');
+const resetFormAdd = (popup) => {
   if (document.querySelector('#add')) {
-    addForm.reset();
+    formAdd.reset();
   }
+};
+
+const closePopupByEsc = (popup) => {
+  popup.classList.remove("popup__opened");` `
+  body.classList.remove('page_no-scroll');
+  resetFormAdd(popup);
 }
+
+
 
 function getPopupPhotoContent (eventTarget) {
     popupPhotoImage.setAttribute('src', eventTarget.getAttribute('src'));
-    popupPhotoDescription.textContent = eventTarget.parentElement.querySelector('h4').textContent;
+    popupPhotoImage.setAttribute('alt', eventTarget.offsetParent.querySelector('h4').textContent);
+    popupPhotoDescription.textContent = eventTarget.offsetParent.querySelector('h4').textContent;
 }
 
 function saveInputs(evt) {
@@ -124,33 +136,40 @@ function saveInputs(evt) {
   textName.textContent = inputName.value;
 }
 
-editButton.addEventListener("click", () => {
+buttonEdit.addEventListener("click", () => {
   inputName.value = textName.textContent;
   inputAbout.value = textAbout.textContent;
   openPopup(popupEdit);
 });
 
-addButton.addEventListener("click", () => openPopup(popupAdd));
+buttonAdd.addEventListener("click", () => openPopup(popupAdd));
 
-const editForm = document.getElementById("edit");
+const formEdit = document.querySelector("#edit");
 
-editForm.addEventListener("submit", (evt) => {
+formEdit.addEventListener("submit", (evt) => {
   saveInputs(evt);
-  closePopup(evt);
+  closePopup(evt.target.parentElement.parentElement);
 });
 
-const addForm = document.getElementById("add");
-const addName = document.getElementById("popup__input-title");
-const addLink = document.getElementById("popup__input-link");
+const formAdd = document.querySelector("#add");
+const nameAdd = document.querySelector("#popup__input-title");
+const linkAdd = document.querySelector("#popup__input-link");
 
-addForm.addEventListener("submit", (evt) => {
-  cards.prepend(createCard({name:addName.value, link:addLink.value}));
-    closePopup(evt);
-    addForm.reset();
+formAdd.addEventListener("submit", (evt) => {
+  cards.prepend(createCard({name:nameAdd.value, link:linkAdd.value}));
+    closePopup(popup);
+    formAdd.reset();
 });    
 
 const closeButtons = document.querySelectorAll(".popup__close-button");
 
-closeButtons.forEach((button) => {
-  button.addEventListener("click", (evt) => closePopup(evt));
+
+
+popups.forEach((popup) => {
+  popup.addEventListener('click', (evt) => {
+    if (evt.target === evt.currentTarget || evt.target.classList.contains('popup__close-button')) { // спасибо почитал
+      closePopup(popup);
+    }
+    return
+  })
 });

@@ -1,5 +1,5 @@
-const enableValidation = () => {
-  const formList = Array.from(document.querySelectorAll('.popup__form'));
+const enableValidation = (obj) => {
+  const formList = Array.from(document.querySelectorAll(obj.formSelector.value));//('.popup__form'));
   formList.forEach((formElement) => {
     formElement.addEventListener('submit', function (evt) {
       evt.preventDefault();
@@ -12,7 +12,7 @@ const enableValidation = () => {
 };
 
 const setEventListeners = (formElement) => {
-  const inputList = Array.from(formElement.querySelectorAll('.popup__input'));
+  const inputList = Array.from(formElement.querySelectorAll(obj.inputSelector.value));//('.popup__input'));
   const buttonElement = formElement.querySelector('.popup__save-button');
   toggleButtonState(inputList, buttonElement);
   inputList.forEach((inputElement) => {
