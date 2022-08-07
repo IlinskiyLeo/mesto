@@ -41,8 +41,8 @@ const addLikeListener = (evt) => {
   evt.target.classList.toggle('cards__like-button_active');
 };
 
-const addPhotoListener = (evt) => {
-  getPopupPhotoContent(evt.target);
+const addPhotoListener = (item) => {
+  getPopupPhotoContent(item.src, item.alt);
   openPopup(popupPhoto);
 };
 
@@ -64,7 +64,7 @@ const createCard = (item) => {
   const likeButton = cardsElement.querySelector('.cards__like-button');
   likeButton.addEventListener('click', (evt) =>  addLikeListener(evt));
 
-  cardsImage.addEventListener("click", (evt) => addPhotoListener(evt));
+  cardsImage.addEventListener("click", (evt) => addPhotoListener(evt.target));
   cardsImage.setAttribute('alt', cardsDescription.textContent);
 
   const deleteButton = cardsElement.querySelector('.cards__delete-button');
@@ -84,52 +84,43 @@ cardsInitial.forEach(item => {
 
 const body = document.querySelector('body');
 
+function removePopupClass(evt) {
+  evt.target.classList.remove("popup__opened");
+} 
 const checkKeydownEvent = (evt) => {
   if (evt.key === 'Escape') {
-    const main = evt.target.children[1];
-    const blocks = Array.from(main.children)
-    blocks.forEach(Element => {
-      if (Element.classList.contains('popup__opened')) {
-        closePopupByEsc(Element);
-      }
-    })
+    const activePopup = document.querySelector('.popup__opened'); //вот я тупица, спасибо!
+    closePopup(activePopup);
   }
 }
 
 const openPopup = (popup) => {
-  document.addEventListener("keydown", function addKeydowmListener(evt){checkKeydownEvent(evt)});
-  popup.addEventListener('click', function removePopupClass(evt){evt.target.classList.remove("popup__opened");} );
+  document.addEventListener("keydown", checkKeydownEvent);
+  popup.addEventListener('click', removePopupClass);
   disableAddbutton(popupAdd);
+    if (popup.querySelector('.popup__form')) {
+      popup.querySelector('.popup__form').reset();
+    }
   popup.classList.add("popup__opened");
   body.classList.add('page_no-scroll');
 }
 
 const closePopup = (popup) => {
+  document.removeEventListener("keydown", checkKeydownEvent);
+  document.removeEventListener('click', removePopupClass);
   popup.classList.remove("popup__opened");
   body.classList.remove('page_no-scroll');
-  resetFormAdd(popup); 
 }
 
-const disableAddbutton = (popupAdd) => {popupAdd.querySelector('.popup__save-button').classList.add('popup__save-button_inactive')};
-
-const resetFormAdd = (popup) => {
-  if (document.querySelector('#add')) {
-    formAdd.reset();
-  }
+const disableAddbutton = (popupAdd) => {
+  popupAdd.querySelector('.popup__save-button').classList.add('popup__save-button_inactive');
+  popupAdd.querySelector('.popup__save-button').setAttribute('disabled', true);
 };
 
-const closePopupByEsc = (popup) => {
-  popup.classList.remove("popup__opened");` `
-  body.classList.remove('page_no-scroll');
-  resetFormAdd(popup);
-}
-
-
-
-function getPopupPhotoContent (eventTarget) {
-    popupPhotoImage.setAttribute('src', eventTarget.getAttribute('src'));
-    popupPhotoImage.setAttribute('alt', eventTarget.offsetParent.querySelector('h4').textContent);
-    popupPhotoDescription.textContent = eventTarget.offsetParent.querySelector('h4').textContent;
+function getPopupPhotoContent (cardsImageSrc, cardsDescriptionText) {
+    popupPhotoImage.setAttribute('src', cardsImageSrc);
+    popupPhotoImage.setAttribute('alt', cardsDescriptionText);
+    popupPhotoDescription.textContent = cardsDescriptionText;
 }
 
 function saveInputs(evt) {
@@ -140,9 +131,9 @@ function saveInputs(evt) {
 }
 
 buttonEdit.addEventListener("click", () => {
+  openPopup(popupEdit);
   inputName.value = textName.textContent;
   inputAbout.value = textAbout.textContent;
-  openPopup(popupEdit);
 });
 
 buttonAdd.addEventListener("click", () => openPopup(popupAdd));
@@ -160,7 +151,7 @@ const linkAdd = document.querySelector("#popup__input-link");
 
 formAdd.addEventListener("submit", (evt) => {
   cards.prepend(createCard({name:nameAdd.value, link:linkAdd.value}));
-    closePopup(evt.target.offsetParent.offsetParent);
+    closePopup(popupAdd);
     formAdd.reset();
 });    
 

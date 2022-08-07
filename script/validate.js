@@ -56,7 +56,7 @@ const hasInvalidInput = (inputList) => {
 }
   
 const toggleButtonState = (inputList, buttonElement, obj) => {
-  if (hasInvalidInput(inputList)) { // У меня в классе прописан pointer-events:none зачем мне лишний код если я могу это вместе с навешиванием класса делать в css
+  if (hasInvalidInput(inputList)) {
     buttonElement.classList.add(obj.inactiveButtonClass);
     buttonElement.setAttribute('disabled', true);
   } else {
