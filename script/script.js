@@ -83,13 +83,12 @@ cardsInitial.forEach(item => {
 
 const body = document.querySelector('body');
 
-const removePopupClass = (evt) => {evt.target.classList.remove("popup__opened");}
 const checkKeydownEvent = (evt) => {
   if (evt.key === 'Escape') {
     const main = evt.target.children[1];
     const blocks = Array.from(main.children)
     blocks.forEach(Element => {
-      if (Element.classList.contains('popup')) {
+      if (Element.classList.contains('popup__opened')) {
         closePopupByEsc(Element);
       }
     })
@@ -97,8 +96,8 @@ const checkKeydownEvent = (evt) => {
 }
 
 const openPopup = (popup) => {
-  document.addEventListener("keydown", (evt) => checkKeydownEvent(evt));//я реально 2 часа потратил на попытки выполнить твоё исправление, но это какой-то костыль
-  popup.addEventListener('click', (evt) => removePopupClass(evt));// тут было попроще и то хз правильно ли я сделал
+  document.addEventListener("keydown", function addKeydowmListener(evt){checkKeydownEvent(evt)});
+  popup.addEventListener('click', function removePopupClass(evt){evt.target.classList.remove("popup__opened");} );
   popup.classList.add("popup__opened");
   body.classList.add('page_no-scroll');
 }
