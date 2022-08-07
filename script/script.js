@@ -1,6 +1,6 @@
 const profile = document.querySelector(".profile");
 const buttonEdit = profile.querySelector(".profile__edit-button");
-const buttonSubmit = document.querySelectorAll(".popup__save-button");
+const buttonsSubmit = document.querySelectorAll(".popup__save-button");
 const buttonAdd = document.querySelector(".profile__add-button");
 const textName = profile.querySelector(".profile__name");
 const textAbout = profile.querySelector(".profile__about");
@@ -97,10 +97,6 @@ const checkKeydownEvent = (evt) => {
 const openPopup = (popup) => {
   document.addEventListener("keydown", checkKeydownEvent);
   popup.addEventListener('click', removePopupClass);
-  disableAddbutton(popupAdd);
-    if (popup.querySelector('.popup__form')) {
-      popup.querySelector('.popup__form').reset();
-    }
   popup.classList.add("popup__opened");
   body.classList.add('page_no-scroll');
 }
@@ -112,9 +108,11 @@ const closePopup = (popup) => {
   body.classList.remove('page_no-scroll');
 }
 
-const disableAddbutton = (popupAdd) => {
-  popupAdd.querySelector('.popup__save-button').classList.add('popup__save-button_inactive');
-  popupAdd.querySelector('.popup__save-button').setAttribute('disabled', true);
+const buttonSubmitAddForm = popupAdd.querySelector(".popup__save-button");
+
+const disableAddButton = (popupAdd) => {
+  buttonSubmitAddForm.classList.add('popup__save-button_inactive');
+  buttonSubmitAddForm.setAttribute('disabled', true);
 };
 
 function getPopupPhotoContent (cardsImageSrc, cardsDescriptionText) {
@@ -131,12 +129,17 @@ function saveInputs(evt) {
 }
 
 buttonEdit.addEventListener("click", () => {
+  popupEdit.querySelector('.popup__form').reset();
   openPopup(popupEdit);
   inputName.value = textName.textContent;
   inputAbout.value = textAbout.textContent;
 });
 
-buttonAdd.addEventListener("click", () => openPopup(popupAdd));
+buttonAdd.addEventListener("click", () => {
+  openPopup(popupAdd);
+  disableAddButton(popupAdd);
+  popupAdd.querySelector('.popup__form').reset();
+})
 
 const formEdit = document.querySelector("#edit");
 
