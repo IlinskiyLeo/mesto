@@ -1,13 +1,19 @@
+import Card from './Card.js'
+import FormValidator from './FormValidator.js';
+
+const popupPhotoImage = document.querySelector('.popup-photo__image');
+const popupPhotoDescription = document.querySelector('.popup-photo__description');
 const profile = document.querySelector(".profile");
 const buttonEdit = profile.querySelector(".profile__edit-button");
-const buttonSubmit = document.querySelectorAll(".popup__save-button");
+const buttonsSubmit = document.querySelectorAll(".popup__save-button");
 const buttonAdd = document.querySelector(".profile__add-button");
 const textName = profile.querySelector(".profile__name");
 const textAbout = profile.querySelector(".profile__about");
 const inputAbout = document.querySelector("#popup__input-about");
 const inputName = document.querySelector("#popup__input-name");
-const popupPhotoImage = document.querySelector('.popup-photo__image');
-const popupPhotoDescription = document.querySelector('.popup-photo__description');
+const popupEdit = document.querySelector(".popup-edit");
+const popupAdd = document.querySelector(".popup-add");
+const popups = document.querySelectorAll('.popup');
 const cards = document.querySelector('.cards');
 
 const cardsInitial = [
@@ -37,59 +43,22 @@ const cardsInitial = [
   }
 ];
 
-const addLikeListener = (evt) => {
-  evt.target.classList.toggle('cards__like-button_active');
-};
-
-const addPhotoListener = (item) => {
-  getPopupPhotoContent(item.src, item.alt);
-  openPopup(popupPhoto);
-};
-
-const addDeleteListener = (evt) => {
-  const card = evt.target.closest('.cards__element');
-  card.remove();
-}
-
-const createCard = (item) => {
-  const cardsTemplate = document.querySelector('.cards__element-template').content;
-  const cardsElement = cardsTemplate.querySelector('.cards__element').cloneNode(true);
   
-  const cardsImage = cardsElement.querySelector('.cards__image');
-  cardsImage.setAttribute('src', item.link);
-
-  const cardsDescription = cardsElement.querySelector('.cards__description');
-  cardsDescription.textContent = item.name;
-
-  const likeButton = cardsElement.querySelector('.cards__like-button');
-  likeButton.addEventListener('click', (evt) =>  addLikeListener(evt));
-
-  cardsImage.addEventListener("click", (evt) => addPhotoListener(evt.target));
-  cardsImage.setAttribute('alt', cardsDescription.textContent);
-
-  const deleteButton = cardsElement.querySelector('.cards__delete-button');
-  deleteButton.addEventListener('click', (evt) => addDeleteListener(evt));
-
-  return cardsElement;
-}
-
-const popupEdit = document.querySelector(".popup-edit");
-const popupAdd = document.querySelector(".popup-add");
-const popupPhoto = document.querySelector(".popup-photo");
-const popups = document.querySelectorAll('.popup');
-
 cardsInitial.forEach(item => {
-  cards.append(createCard(item));
-});
+  const card = new Card(item, '.cards__element-template');
+  const cardElement = card.generateCard();
+  
+  document.querySelector('.cards').append(cardElement);
+})
 
 const body = document.querySelector('body');
 
 function removePopupClass(evt) {
   evt.target.classList.remove("popup__opened");
 } 
-const checkKeydownEvent = (evt) => {
+export const checkKeydownEvent = (evt) => {
   if (evt.key === 'Escape') {
-    const activePopup = document.querySelector('.popup__opened'); //вот я тупица, спасибо!
+    const activePopup = document.querySelector('.popup__opened');
     closePopup(activePopup);
   }
 }
@@ -97,10 +66,6 @@ const checkKeydownEvent = (evt) => {
 const openPopup = (popup) => {
   document.addEventListener("keydown", checkKeydownEvent);
   popup.addEventListener('click', removePopupClass);
-  disableAddbutton(popupAdd);
-    if (popup.querySelector('.popup__form')) {
-      popup.querySelector('.popup__form').reset();
-    }
   popup.classList.add("popup__opened");
   body.classList.add('page_no-scroll');
 }
@@ -112,9 +77,11 @@ const closePopup = (popup) => {
   body.classList.remove('page_no-scroll');
 }
 
-const disableAddbutton = (popupAdd) => {
-  popupAdd.querySelector('.popup__save-button').classList.add('popup__save-button_inactive');
-  popupAdd.querySelector('.popup__save-button').setAttribute('disabled', true);
+const buttonSubmitAddForm = popupAdd.querySelector(".popup__save-button");
+
+const disableAddButton = (popupAdd) => {
+  buttonSubmitAddForm.classList.add('popup__save-button_inactive');
+  buttonSubmitAddForm.setAttribute('disabled', true);
 };
 
 function getPopupPhotoContent (cardsImageSrc, cardsDescriptionText) {
@@ -131,12 +98,17 @@ function saveInputs(evt) {
 }
 
 buttonEdit.addEventListener("click", () => {
+  popupEdit.querySelector('.popup__form').reset();
   openPopup(popupEdit);
   inputName.value = textName.textContent;
   inputAbout.value = textAbout.textContent;
 });
 
-buttonAdd.addEventListener("click", () => openPopup(popupAdd));
+buttonAdd.addEventListener("click", () => {
+  openPopup(popupAdd);
+  disableAddButton(popupAdd);
+  popupAdd.querySelector('.popup__form').reset();
+})
 
 const formEdit = document.querySelector("#edit");
 
@@ -155,13 +127,9 @@ formAdd.addEventListener("submit", (evt) => {
     formAdd.reset();
 });    
 
-const closeButtons = document.querySelectorAll(".popup__close-button");
-
-
-
 popups.forEach((popup) => {
   popup.addEventListener('click', (evt) => {
-    if (evt.target === evt.currentTarget || evt.target.classList.contains('popup__close-button')) { // спасибо почитал
+    if (evt.target === evt.currentTarget || evt.target.classList.contains('popup__close-button')) {
       closePopup(popup);
     }
     return
