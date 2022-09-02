@@ -1,4 +1,4 @@
-export class FormValidator {
+export default class FormValidator {
   constructor(obj, formElement) {
     this._obj = obj;
     this._formElement = formElement;
@@ -17,15 +17,17 @@ export class FormValidator {
   };
 
   _showInputError(inputElement) {
-    const errorElement = document.getElementById(`${inputElement.id}-error`);
+    const errorElement = document.querySelector(`.${inputElement.id}-error`);
     inputElement.classList.add(this._obj.inputErrorClass);
     errorElement.textContent = inputElement.validationMessage;
+    errorElement.classList.add(this._obj.errorClass);
   };
 
   _hideInputError (inputElement) {
-    const errorElement = document.getElementById(`${inputElement.id}-error`);
+    const errorElement = document.querySelector(`.${inputElement.id}-error`);
     inputElement.classList.remove(this._obj.inputErrorClass);
     errorElement.textContent = '';
+    errorElement.classList.remove(this._obj.errorClass);
   };
 
 
@@ -74,16 +76,5 @@ export class FormValidator {
         this._hideInputError(inputElement);
     });
   };
-};  
-
-  
-enableValidation({
-  formSelector: '.popup__form',
-  fieldsetSelector: '.popup__fieldset',
-  inputSelector: '.popup__input',
-  submitButtonSelector: '.popup__save-button',
-  inactiveButtonClass: 'popup__save-button_inactive',
-  inputErrorClass: 'popup__input_type_error',
-  errorClass: 'popup__span-error_active',
-});
+};
   

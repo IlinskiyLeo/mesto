@@ -43,6 +43,26 @@ const cardsInitial = [
   }
 ];
 
+const validationSettings = {
+  formSelector: '.popup__form',
+  fieldsetSelector: '.popup__fieldset',
+  inputSelector: '.popup__input',
+  submitButtonSelector: '.popup__save-button',
+  inactiveButtonClass: 'popup__save-button_inactive',
+  inputErrorClass: 'popup__input_type_error',
+  errorClass: 'popup__span-error_active',
+};
+
+const validateForms = (popup) => {
+  const formValidation = new FormValidator (validationSettings, popup.querySelector('.popup__form'));
+  const formValidationEnable = formValidation.enableValidation();
+}
+
+const validateFormsDisable = (popup) => {
+  const formValidation = new FormValidator (validationSettings, popup.querySelector('.popup__form'));
+  const formValidationDisable = formValidation.resetValidation();
+}
+
   
 cardsInitial.forEach(item => {
   const card = new Card(item, '.cards__element-template');
@@ -68,6 +88,7 @@ const openPopup = (popup) => {
   popup.addEventListener('click', removePopupClass);
   popup.classList.add("popup__opened");
   body.classList.add('page_no-scroll');
+  validateForms(popup);
 }
 
 const closePopup = (popup) => {
@@ -75,6 +96,7 @@ const closePopup = (popup) => {
   document.removeEventListener('click', removePopupClass);
   popup.classList.remove("popup__opened");
   body.classList.remove('page_no-scroll');
+  validateFormsDisable(popup);
 }
 
 const buttonSubmitAddForm = popupAdd.querySelector(".popup__save-button");
@@ -122,7 +144,9 @@ const nameAdd = document.querySelector("#popup__input-title");
 const linkAdd = document.querySelector("#popup__input-link");
 
 formAdd.addEventListener("submit", (evt) => {
-  cards.prepend(createCard({name:nameAdd.value, link:linkAdd.value}));
+  console.log(nameAdd.value, linkAdd.value);
+  const card = new Card ({name:nameAdd.value, link:linkAdd.value}, '.cards__element-template')
+  cards.prepend(card.generateCard());
     closePopup(popupAdd);
     formAdd.reset();
 });    
@@ -135,3 +159,4 @@ popups.forEach((popup) => {
     return
   })
 });
+
