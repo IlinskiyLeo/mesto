@@ -1,11 +1,15 @@
-
+function getPopupPhotoContent (cardsImageSrc, cardsDescriptionText) {
+    popupPhotoImage.setAttribute('src', cardsImageSrc);
+    popupPhotoImage.setAttribute('alt', cardsDescriptionText);
+    popupPhotoDescription.textContent = cardsDescriptionText;
+}
 export default class Card {
-constructor(data, templateSelector, openPopup, popup) {
+constructor(data, templateSelector, imageHandler, cardData) {
     this._text = data.name;
     this._link = data.link;
     this._templateSelector = templateSelector;
-    this._openPopup = openPopup;
-    this._popup = popup;
+    this._imageHandler = imageHandler;
+    this._cardData = cardData;
     }
 
     _getTemplate () {
@@ -39,7 +43,7 @@ constructor(data, templateSelector, openPopup, popup) {
     }
     
     _setEventListeners() {
-        this._image.addEventListener('click', ()=> {this._openPopup(this._popup)});
+        this._image.addEventListener('click', ()=> {this._imageHandler(this._cardData)});
         this._element.querySelector('.cards__delete-button').addEventListener('click', ()=> {this._handleDeleteCard()});
         this._element.querySelector('.cards__like-button').addEventListener('click', ()=> {this._like()});
     }    

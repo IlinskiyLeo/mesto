@@ -99,11 +99,16 @@ const disableAddButton = (popupAdd) => {
   buttonSubmitAddForm.setAttribute('disabled', true);
 };
 
-// function getPopupPhotoContent (cardsImageSrc, cardsDescriptionText) {
-//     popupPhotoImage.setAttribute('src', cardsImageSrc);
-//     popupPhotoImage.setAttribute('alt', cardsDescriptionText);
-//     popupPhotoDescription.textContent = cardsDescriptionText;
-// }
+function getPopupPhotoContent (cardData) {
+    popupPhotoImage.setAttribute('src', cardData.link);
+    popupPhotoImage.setAttribute('alt', cardData.name);
+    popupPhotoDescription.textContent = cardData.name;
+}
+
+const addPhotoListener = (cardData) => {
+  getPopupPhotoContent(cardData);
+  openPopup(popupPhoto);
+};
 
 // const openPopupPhoto = () => {
 //   popupPhotoImage.src = ;
@@ -146,7 +151,7 @@ const nameAdd = document.querySelector("#popup__input-title");
 const linkAdd = document.querySelector("#popup__input-link");
 
 cardsInitial.forEach(item => {
-  const card = new Card(item, '.cards__element-template', openPopup, popupPhoto);
+  const card = new Card(item, '.cards__element-template', addPhotoListener, item);
   const cardElement = card.generateCard();
   
   document.querySelector('.cards').append(cardElement);
