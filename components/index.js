@@ -16,8 +16,11 @@ const popupPhotoDescription = document.querySelector('.popup-photo__description'
 const popups = document.querySelectorAll('.popup');
 const cards = document.querySelector('.cards');
 let activePopup = document.querySelector('.popup__opened');
+const formEdit = document.querySelector('#edit');
+const formAdd = document.querySelector('#add');
 
-const cardsInitial = [ // каждый ревьюер по разному говорит называть эту константу, я устал переименовывать ее, раньше она называлась initialCards.
+
+const cardsInitial = [
   {
   name: 'Архыз',
   link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/arkhyz.jpg'
@@ -54,8 +57,8 @@ const validationSettings = {
   errorClass: 'popup__span-error_active',
 };
 
-const formAddValidation = new FormValidator (validationSettings, popupAdd.querySelector('.popup__form'));
-const formEditValidation = new FormValidator (validationSettings, popupEdit.querySelector('.popup__form'));
+const formAddValidation = new FormValidator (validationSettings, formAdd);
+const formEditValidation = new FormValidator (validationSettings, formEdit);
 
 
 const validateForms = () => {
@@ -103,11 +106,6 @@ const closePopup = (popup) => {
   validateFormsDisable(popup);
 }
 
-const disableAddButton = () => {
-  formEditValidation.disableSubmitButton();
-  formAddValidation.disableSubmitButton();
-};
-
 function setPopupPhotoContent (data) {
     popupPhotoImage.setAttribute('src', data.link);
     popupPhotoImage.setAttribute('alt', data.name);
@@ -126,14 +124,12 @@ function saveProfileFields(evt) {
   textName.textContent = inputName.value;
 }
 
-const formEdit = document.querySelector('#edit');
-const formAdd = document.querySelector('#add');
 const nameAddInput = document.querySelector('#popup__input-title');
 const linkAddInput = document.querySelector('#popup__input-link');
 
 buttonEdit.addEventListener('click', () => {
   formEdit.reset();
-  disableAddButton();
+  formEditValidation.disableSubmitButton();
   inputName.value = textName.textContent;
   inputAbout.value = textAbout.textContent;
   openPopup(popupEdit);
@@ -141,7 +137,7 @@ buttonEdit.addEventListener('click', () => {
 
 buttonAdd.addEventListener('click', () => {
   formAdd.reset();
-  disableAddButton();
+  formAddValidation.disableSubmitButton();
   openPopup(popupAdd);
 })
 
@@ -156,10 +152,11 @@ cardsInitial.forEach(item => {
 formEdit.addEventListener('submit', (evt) => {
   saveProfileFields(evt);
   closePopup(activePopup);
-  disableAddButton();
+  formEditValidation.disableSubmitButton();
 });
 
-formAdd.addEventListener('submit', () => {
+formAdd.addEventListener('submit', (evt) => {
+  evt.preventDefault();
   const card = new Card ({name:nameAddInput.value, link:linkAddInput.value}, '.cards__element-template', createPhotoPopup);
   cards.prepend(card.generateCard());
     closePopup(popupAdd);

@@ -20,6 +20,7 @@ constructor(data, templateSelector, imageHandler) {
     generateCard () {
         this._element = this._getTemplate();
         this._image = this._element.querySelector('.cards__image');
+        this._likeButton = this._element.querySelector('.cards__like-button');
 
         this._image.src = this._link;
         this._image.alt = this._text;
@@ -35,12 +36,12 @@ constructor(data, templateSelector, imageHandler) {
     }
 
     _like() {
-        this._element.querySelector('.cards__like-button').classList.toggle('cards__like-button_active');
+        this._likeButton.classList.toggle('cards__like-button_active');
     }
     
     _setEventListeners() {
         this._image.addEventListener('click', ()=> {this._imageHandler(this._data)});
         this._element.querySelector('.cards__delete-button').addEventListener('click', ()=> {this._handleDeleteCard()});
-        this._element.querySelector('.cards__like-button').addEventListener('click', ()=> {this._like()});
+        this._likeButton.addEventListener('click', ()=> {this._like()});
     }    
 }
