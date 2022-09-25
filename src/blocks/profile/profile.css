@@ -1,6 +1,5 @@
 .profile {
     display: flex;
-    justify-content: start;
     align-items: center;
     flex-wrap: nowrap;
     padding-top: 40px;

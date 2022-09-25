@@ -4,17 +4,16 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="./pages/index.css">
     <link rel="icon" href="https://cdn.flipboard.com/uploads/avatar/54ed37509078484e900bff8f0dd40552993c05ca.jpg">
     <title>Document</title>
 </head>
 <body class="page">
     <header class="block header">
-        <img src="./images/header__logo.svg" alt="Логотип Mesto" class="header__logo">
+        <img src="<%=require('./images/header__logo.svg')%>" alt="Логотип Mesto" class="header__logo">
     </header>
     <main class="block content">
         <section class="profile">
-            <img src="./images/profile__photo.png" alt="Фото профиля" class="profile__photo">
+            <img src="<%=require('./images/profile__photo.png')%>" alt="Фото профиля" class="profile__photo">
             <div class="profile__text-container">
                 <div class="profile__button-container">
                     <h3 class="profile__name">Жак-Ив Кусто</h3>
@@ -75,6 +74,5 @@
             <button class="cards__like-button"></button>
         </div>
     </template>
-    <script type="module" src="./components/index.js"></script>
 </body>
 </html>
